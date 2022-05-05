@@ -6,10 +6,9 @@ An API for a dummy tax system with 2 usr roles - accountant and payer
 ## Installation
 
 
-``node or docker
+``node 
 npm i 
-or
-docker build . -t <name>
+
 ```
 
 ## Usage
