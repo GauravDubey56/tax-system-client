@@ -3,8 +3,10 @@ import '../App.css'
 import {UserContext} from '../context'
 import axios from 'axios';
 import { server } from '../constants';
+import { useNavigate } from 'react-router-dom';
 function Login() {
     const userCtx = useContext(UserContext);
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -18,8 +20,16 @@ function Login() {
         const res = await axios.post(server + '/auth/login', payload);
         console.log(res);
         if(res.status === 200 && res.data['success']){
+            localStorage.clear()
             userCtx.setUsername(res.data['data'].username);
-            localStorage.setItem("user", JSON.stringify({username: res.data["data"].username}));
+            localStorage.setItem("username", res.data["data"].username);
+            localStorage.setItem("userId", res.data["data"].userId);
+            localStorage.setItem("token", res.data["data"].token);
+            localStorage.setItem("role", res.data["data"].role);
+            localStorage.setItem("isSignedIn", true)
+            
+            navigate('../home')
+            window.location.reload(true);
         }
       };
     return(

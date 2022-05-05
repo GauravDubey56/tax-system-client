@@ -2,7 +2,9 @@ import React from 'react'
 import '../App.css'
 import { server } from '../constants';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 function Signup() {
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -20,10 +22,13 @@ function Signup() {
     console.log(payload);
     const res = await axios.post(server + '/auth/new', payload);
     console.log(res);
+    navigate('../login')
   };
   return (
     <React.Fragment>
+      
       <form className="login-wrapper" onSubmit={handleSubmit}>
+        <h1>Sign up</h1>
         <label>
           <div>Username</div>
           <input type="text" name="username"/>
